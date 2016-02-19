@@ -1,0 +1,41 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def jettyVersion = "8.1.14.v20131031"
+
+    compile "org.eclipse.jetty:jetty-server:$jettyVersion"
+    compile "org.eclipse.jetty:jetty-webapp:$jettyVersion"
+    compile "org.eclipse.jetty:jetty-annotations:$jettyVersion"
+    compile "org.eclipse.jetty:jetty-continuation:$jettyVersion"
+    compile "org.eclipse.jetty:jetty-http:$jettyVersion"
+    compile "org.eclipse.jetty:jetty-websocket:$jettyVersion"
+    compile "org.eclipse.jetty:jetty-io:$jettyVersion"
+    compile "org.eclipse.jetty:jetty-util:$jettyVersion"
+
+    compile "com.typesafe:config:1.2.1"
+
+    compile 'redis.clients:jedis:2.6.2'
+
+    compile group: 'com.google.guava', name: 'guava', version: '19.0'
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'ui'
+        }
+    }
+}
+
+jar {
+    from (configurations.compile.collect {it.isDirectory() ? it : project.zipTree(it)}) {
+        exclude "META-INF/*.txt"
+    }
+    manifest { attributes 'Main-Class': 'reactive.Launcher' }
+}

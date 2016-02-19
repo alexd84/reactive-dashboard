@@ -1,0 +1,14 @@
+build
+.gradle
+out
+
+*.iml
+*.ipr
+*.iws
+/bin/
+
+/.classpath
+/.project
+/.settings/
+
+dump.rdb
