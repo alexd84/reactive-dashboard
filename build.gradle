@@ -35,7 +35,7 @@ sourceSets {
 
 jar {
     from (configurations.compile.collect {it.isDirectory() ? it : project.zipTree(it)}) {
-        exclude "META-INF/*.txt"
+        exclude "META-INF/*"
     }
     manifest { attributes 'Main-Class': 'reactive.Launcher' }
 }
